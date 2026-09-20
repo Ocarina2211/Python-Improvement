@@ -86,11 +86,12 @@ def afficher_le_plus_riche(comptes):
             richest = compte
     print("Le plus riche est :",richest, "avec", max,"€")
 
-afficher_le_plus_riche(comptes)
 
 def affichage_generale():
 
-
+    print("" \
+    "" \
+    "")
     print("=== BANQUE ===")
     print("" \
     "" \
@@ -101,9 +102,41 @@ def affichage_generale():
     print("4 - Faire un virement")
     print("5 - Afficher le compte le plus riche")
     print("6 - Quitter")
+    print("" \
+    "" \
+    "")
 
-    action = str(input("Quelle action souhaitez-vous réaliser ? "))
-    if action == "1":
-        afficher_les_comptes
+def fonctionnement():
+    affichage_generale()
+    action = (input("Quelle action souhaitez-vous réaliser ? "))
+    if int(action) == 6:
+        print("À bientot !")
+    while int(action) < 6 :
+        if int(action) == 1 :
+            afficher_les_comptes(comptes)
+            affichage_generale()
+            action = str(input("Quelle action souhaitez-vous réaliser ? "))
+        if int(action) == 2 :
+            depot_argent(comptes)
+            affichage_generale()
+            action = str(input("Quelle action souhaitez-vous réaliser ? "))
+        if int(action) == 3:
+            retirer_argent(comptes)
+            affichage_generale()
+            action = str(input("Quelle action souhaitez-vous réaliser ? "))
+        if int(action) == 4:
+            virement(comptes)
+            affichage_generale()
+            action = str(input("Quelle action souhaitez-vous réaliser ? "))
+        if int(action) == 5:
+            afficher_le_plus_riche(comptes)
+            affichage_generale()
+            action = str(input("Quelle action souhaitez-vous réaliser ? "))
+        if int(action) == 6:
+            print(" À bientot !")
     
+
+fonctionnement()
+
+
 
