@@ -42,4 +42,39 @@ def retirer_argent(comptes):
     else :
          print("Nous n'avons pas de compte à votre nom, veuillez réssayer")
 
-retirer_argent(comptes)
+
+
+def virement(comptes):
+    accSource =str(input("Choisir le compte source : "))
+    if accSource in comptes:
+        accDest = str(input("Choisir le compte destinataire : "))
+        if accDest in comptes :
+            montant = float(input("Combien souhaitez vous transférer ?"))
+            if montant > 0 and montant < comptes[accSource]:
+                comptes[accSource] -= montant
+                comptes[accDest] += montant
+                print("" \
+                "" \
+                "")
+                print("Compte source : ",accSource)
+                print("Compte destinataire : ", accDest)
+                print("Montant : ", montant)
+                print("" \
+                "")
+                print("Virement effectué !")
+                print("" \
+                "")
+                print(accSource, " : ", comptes[accSource],"€")
+                print(accDest, " :", comptes[accDest], "€")
+
+            elif montant < 0 :
+                print("Veuillez saisir un montant supérieur à 0")
+            else:
+                print("Vous n'avez pas cette somme sur votre compte.")
+
+        else :
+            print("Ce nom n'est pas enregistré dans notre banque")
+    else :
+        print("Ce nom n'est pas enregistré dans notre banque")
+
+virement(comptes)
