@@ -4,139 +4,133 @@ comptes = {
     "Emma": 2100
 }
 
-def afficher_les_comptes(comptes):
-    print("=== COMPTES ===")
-    print("" \
-    "")
-    for nom, argent in comptes.items():
-        print(nom, ":",argent, "€")
+
+def afficher_comptes():
+    print("\n=== COMPTES ===")
+    for nom, solde in comptes.items():
+        print(f"{nom} : {solde} €")
 
 
-def depot_argent(comptes):
-    compte = str(input("Quel est tom nom ? "))
-    if compte in comptes.keys():
-        ancien_montant = comptes[compte]
-        montant = float(input("Combien souhaitez-vous déposer sur votre compte ?"))
-        if montant > 0 :
-            comptes[compte] = ancien_montant + montant
-            print("Depot réussi ! ")
-            print("Votre compte est passé de ", ancien_montant, "€ à",comptes[compte], "€")
-        else :
-            print("Vous devez saisir une valeur supérieur à 0")
-    else :
-        print("Nous n'avons pas de compte à votre nom, veuillez réssayer")
+def deposer_argent():
+    nom = input("Sur quel compte voulez-vous déposer ? ")
 
-def retirer_argent(comptes):
-    compte = str(input("Quel est tom nom ? "))
-    if compte in comptes.keys():
-        ancien_montant = comptes[compte]
-        montant = float(input("Combien souhaitez-vous retirer sur votre compte ?"))
-        if montant > 0 and montant < ancien_montant :
-            comptes[compte] = ancien_montant - montant
-            print("Action réussi ! ")
-            print("Votre compte est passé de ", ancien_montant, "€ à",comptes[compte], "€")
+    if nom not in comptes:
+        print("Ce compte n'existe pas.")
+        return
 
-        else :
-            print("Vous devez saisir une valeur supérieur à 0")
+    montant = float(input("Montant à déposer : "))
 
-    else :
-         print("Nous n'avons pas de compte à votre nom, veuillez réssayer")
+    if montant <= 0:
+        print("Le montant doit être supérieur à 0.")
+        return
+
+    comptes[nom] += montant
+    print(f"Dépôt de {montant} € effectué sur le compte de {nom}.")
 
 
+def retirer_argent():
+    nom = input("Sur quel compte voulez-vous retirer ? ")
 
-def virement(comptes):
-    accSource =str(input("Choisir le compte source : "))
-    if accSource in comptes:
-        accDest = str(input("Choisir le compte destinataire : "))
-        if accDest in comptes :
-            montant = float(input("Combien souhaitez vous transférer ?"))
-            if montant > 0 and montant < comptes[accSource]:
-                comptes[accSource] -= montant
-                comptes[accDest] += montant
-                print("" \
-                "" \
-                "")
-                print("Compte source : ",accSource)
-                print("Compte destinataire : ", accDest)
-                print("Montant : ", montant)
-                print("" \
-                "")
-                print("Virement effectué !")
-                print("" \
-                "")
-                print(accSource, " : ", comptes[accSource],"€")
-                print(accDest, " :", comptes[accDest], "€")
+    if nom not in comptes:
+        print("Ce compte n'existe pas.")
+        return
 
-            elif montant < 0 :
-                print("Veuillez saisir un montant supérieur à 0")
-            else:
-                print("Vous n'avez pas cette somme sur votre compte.")
+    montant = float(input("Montant à retirer : "))
 
-        else :
-            print("Ce nom n'est pas enregistré dans notre banque")
-    else :
-        print("Ce nom n'est pas enregistré dans notre banque")
+    if montant <= 0:
+        print("Le montant doit être supérieur à 0.")
+        return
 
-def afficher_le_plus_riche(comptes):
-    max = 0
-    richest =""
-    for compte, montant in comptes.items():
-        if montant > max:
-            max = montant
-            richest = compte
-    print("Le plus riche est :",richest, "avec", max,"€")
+    if montant > comptes[nom]:
+        print("Solde insuffisant.")
+        return
+
+    comptes[nom] -= montant
+    print(f"Retrait de {montant} € effectué.")
 
 
-def affichage_generale():
+def faire_virement():
+    source = input("Compte source : ")
+    destination = input("Compte destinataire : ")
 
-    print("" \
-    "" \
-    "")
-    print("=== BANQUE ===")
-    print("" \
-    "" \
-    "")
+    if source not in comptes:
+        print("Le compte source n'existe pas.")
+        return
+
+    if destination not in comptes:
+        print("Le compte destinataire n'existe pas.")
+        return
+
+    if source == destination:
+        print("Impossible de faire un virement vers le même compte.")
+        return
+
+    montant = float(input("Montant du virement : "))
+
+    if montant <= 0:
+        print("Le montant doit être supérieur à 0.")
+        return
+
+    if montant > comptes[source]:
+        print("Solde insuffisant.")
+        return
+
+    comptes[source] -= montant
+    comptes[destination] += montant
+
+    print(f"Virement de {montant} € effectué de {source} vers {destination}.")
+
+
+def afficher_plus_riche():
+    meilleur_nom = ""
+    meilleur_solde = -1
+
+    for nom, solde in comptes.items():
+        if solde > meilleur_solde:
+            meilleur_solde = solde
+            meilleur_nom = nom
+
+    print(f"Compte le plus riche : {meilleur_nom} avec {meilleur_solde} €")
+
+
+def afficher_menu():
+    print("\n=== BANQUE ===")
     print("1 - Afficher les comptes")
     print("2 - Déposer de l'argent")
     print("3 - Retirer de l'argent")
     print("4 - Faire un virement")
     print("5 - Afficher le compte le plus riche")
     print("6 - Quitter")
-    print("" \
-    "" \
-    "")
-
-def fonctionnement():
-    affichage_generale()
-    action = (input("Quelle action souhaitez-vous réaliser ? "))
-    if int(action) == 6:
-        print("À bientot !")
-    while int(action) < 6 :
-        if int(action) == 1 :
-            afficher_les_comptes(comptes)
-            affichage_generale()
-            action = str(input("Quelle action souhaitez-vous réaliser ? "))
-        if int(action) == 2 :
-            depot_argent(comptes)
-            affichage_generale()
-            action = str(input("Quelle action souhaitez-vous réaliser ? "))
-        if int(action) == 3:
-            retirer_argent(comptes)
-            affichage_generale()
-            action = str(input("Quelle action souhaitez-vous réaliser ? "))
-        if int(action) == 4:
-            virement(comptes)
-            affichage_generale()
-            action = str(input("Quelle action souhaitez-vous réaliser ? "))
-        if int(action) == 5:
-            afficher_le_plus_riche(comptes)
-            affichage_generale()
-            action = str(input("Quelle action souhaitez-vous réaliser ? "))
-        if int(action) == 6:
-            print(" À bientot !")
-    
-
-fonctionnement()
 
 
+def programme():
+    continuer = True
 
+    while continuer:
+        afficher_menu()
+        choix = input("Choix : ")
+
+        if choix == "1":
+            afficher_comptes()
+
+        elif choix == "2":
+            deposer_argent()
+
+        elif choix == "3":
+            retirer_argent()
+
+        elif choix == "4":
+            faire_virement()
+
+        elif choix == "5":
+            afficher_plus_riche()
+
+        elif choix == "6":
+            continuer = False
+            print("Au revoir !")
+
+        else:
+            print("Choix invalide.")
+
+
+programme()
