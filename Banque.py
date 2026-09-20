@@ -77,4 +77,33 @@ def virement(comptes):
     else :
         print("Ce nom n'est pas enregistré dans notre banque")
 
-virement(comptes)
+def afficher_le_plus_riche(comptes):
+    max = 0
+    richest =""
+    for compte, montant in comptes.items():
+        if montant > max:
+            max = montant
+            richest = compte
+    print("Le plus riche est :",richest, "avec", max,"€")
+
+afficher_le_plus_riche(comptes)
+
+def affichage_generale():
+
+
+    print("=== BANQUE ===")
+    print("" \
+    "" \
+    "")
+    print("1 - Afficher les comptes")
+    print("2 - Déposer de l'argent")
+    print("3 - Retirer de l'argent")
+    print("4 - Faire un virement")
+    print("5 - Afficher le compte le plus riche")
+    print("6 - Quitter")
+
+    action = str(input("Quelle action souhaitez-vous réaliser ? "))
+    if action == "1":
+        afficher_les_comptes
+    
+
