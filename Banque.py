@@ -26,4 +26,20 @@ def depot_argent(comptes):
     else :
         print("Nous n'avons pas de compte à votre nom, veuillez réssayer")
 
-depot_argent(comptes)
+def retirer_argent(comptes):
+    compte = str(input("Quel est tom nom ? "))
+    if compte in comptes.keys():
+        ancien_montant = comptes[compte]
+        montant = float(input("Combien souhaitez-vous retirer sur votre compte ?"))
+        if montant > 0 and montant < ancien_montant :
+            comptes[compte] = ancien_montant - montant
+            print("Action réussi ! ")
+            print("Votre compte est passé de ", ancien_montant, "€ à",comptes[compte], "€")
+
+        else :
+            print("Vous devez saisir une valeur supérieur à 0")
+
+    else :
+         print("Nous n'avons pas de compte à votre nom, veuillez réssayer")
+
+retirer_argent(comptes)
