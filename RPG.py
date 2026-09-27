@@ -32,7 +32,11 @@ class Personnage :
             self.vie = self.vie_max
             print("PV actuel : ", self.vie)
             print("Power heal :", heal)
-        
+
+class Guerrier(Personnage):
+    def __init__(self, nom, vie, attaque, niveau, vie_max, sheild):
+        super().__init__(nom, vie, attaque, niveau, vie_max)    
+        self.sheild = sheild
    
 def combat(joueur1, joueur2):
     tour = 1
