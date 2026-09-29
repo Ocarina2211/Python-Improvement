@@ -72,13 +72,31 @@ class Guerrier(Personnage):
 
 
 class Mage(Personnage):
-    def __init__(self, nom, vie, attaque, niveau, vie_max, mana):
+    def __init__(self, nom, vie, attaque, niveau, vie_max, mana, attaque_magique):
         super().__init__(nom, vie, attaque, niveau, vie_max)
         self.mana = mana
+        self.attaque_magique = attaque_magique
 
     def presenter(self):
         super().presenter()
         print("J'ai", self.mana, " de mana ")
+
+    def lancer_sort(self, cible):
+        if self.mana >= 25 :
+            cible.recevoir_degats(self.attaque_magique)
+            self.mana -= 25
+        else :
+            print("Plus assez de mana")
+
+
+    def attaquer(self, cible):
+        if self.mana >= 25 :
+            self.lancer_sort(cible)
+        else :
+            super().attaquer(cible)
+
+
+
    
 def combat(joueur1, joueur2):
     tour = 1
@@ -101,12 +119,17 @@ def combat(joueur1, joueur2):
     
         
 
+# Initialisation des personnages
 joueur1 = Personnage("Matthieu", 100, 20, 1, 100)
-ennemi1 = Personnage("Goblin", 100, 30, 1, 100)
+ennemi1 = Personnage("Goblin", 300, 30, 1, 300)
 guerrier = Guerrier("Brutus", 100, 40, 1, 130, 25 )
-harry = Mage("Harry", 100, 20, 1, 100, 70)
+harry = Mage("Harry", 100, 20, 1, 100, 70, 40)
 
 
-guerrier.presenter()
-harry.attaquer(guerrier)
-guerrier.presenter()
+
+# Les checks
+while ennemi1.vie > 0 : 
+    print("Le gobelin a ", ennemi1.vie, "PV")
+    harry.attaquer(ennemi1)
+    print("Le gobelin a ", ennemi1.vie, "PV")
+    print("Harry a ",harry.mana, "de mana")
