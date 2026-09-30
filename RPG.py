@@ -7,19 +7,27 @@ class Personnage :
         self.niveau = niveau
         self.vie_max = vie_max
 
+
     def presenter(self):
         print("Je suis", self.nom)
-        print("J'ai", self.vie,"PV")
+        if self.vie > 0 :
+            print("J'ai", self.vie,"PV")
+        else :
+            print("Je suis mort")
         print("Mes attaques font", self.attaque, "dégats")
         print("Je suis niveau", self.niveau)
 
+
+    def recevoir_degats(self, degats):
+        if self.vie > degats :
+            self.vie -= degats
+        else :
+            self.vie = 0
+
+
     def attaquer(self, cible):
-        cible.vie -= self.attaque
-        print(self.nom, "attaque", cible.nom, "!!!")
-        if cible.vie <= 0 :
-            print(cible.nom, "est mort, la honte")
-            cible.vie = 0
-        print(cible.nom, " : ",cible.vie,"/",cible.vie_max, "PV")
+        cible.recevoir_degats(self.attaque)
+
 
     def heal(self, heal):
         if self.vie + heal <= self.vie_max :
@@ -32,11 +40,7 @@ class Personnage :
             self.vie = self.vie_max
             print("PV actuel : ", self.vie)
             print("Power heal :", heal)
-
-class Guerrier(Personnage):
-    def __init__(self, nom, vie, attaque, niveau, vie_max, sheild):
-        super().__init__(nom, vie, attaque, niveau, vie_max)    
-        self.sheild = sheild
+        
    
 def combat(joueur1, joueur2):
     tour = 1
@@ -61,7 +65,10 @@ def combat(joueur1, joueur2):
 
 joueur1 = Personnage("Matthieu", 100, 20, 1, 100)
 ennemi1 = Personnage("Goblin", 100, 30, 1, 100)
+guerrier = Guerrier("Brutus", 100, 40, 1, 130, 25 )
+harry = Mage("Harry", 100, 20, 1, 100, 70)
 
 
-combat(joueur1, ennemi1)
-
+guerrier.presenter()
+harry.attaquer(guerrier)
+guerrier.presenter()
