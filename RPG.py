@@ -40,7 +40,45 @@ class Personnage :
             self.vie = self.vie_max
             print("PV actuel : ", self.vie)
             print("Power heal :", heal)
-        
+
+
+
+
+class Guerrier(Personnage):
+    def __init__(self, nom, vie, attaque, niveau, vie_max, shield):
+        super().__init__(nom, vie, attaque, niveau, vie_max)
+        self.shield = shield
+
+    def presenter(self):
+        super().presenter()
+        if self.shield > 0 :
+            print("J'ai",self.shield, " de shield")
+        else :
+            print ("J'ai plus de shield")
+
+
+    def recevoir_degats(self, degats):
+        if self.shield > 0:
+            degats = degats / 2
+            self.shield -= degats
+
+        if self.shield < 0:
+            self.shield = 0
+
+        super().recevoir_degats(degats)
+
+    
+
+
+
+class Mage(Personnage):
+    def __init__(self, nom, vie, attaque, niveau, vie_max, mana):
+        super().__init__(nom, vie, attaque, niveau, vie_max)
+        self.mana = mana
+
+    def presenter(self):
+        super().presenter()
+        print("J'ai", self.mana, " de mana ")
    
 def combat(joueur1, joueur2):
     tour = 1
@@ -63,12 +101,17 @@ def combat(joueur1, joueur2):
     
         
 
+# Initialisation des personnages
 joueur1 = Personnage("Matthieu", 100, 20, 1, 100)
-ennemi1 = Personnage("Goblin", 100, 30, 1, 100)
+ennemi1 = Personnage("Goblin", 300, 30, 1, 300)
 guerrier = Guerrier("Brutus", 100, 40, 1, 130, 25 )
-harry = Mage("Harry", 100, 20, 1, 100, 70)
+harry = Mage("Harry", 100, 20, 1, 100, 70, 40)
 
 
-guerrier.presenter()
-harry.attaquer(guerrier)
-guerrier.presenter()
+
+# Les checks
+while ennemi1.vie > 0 : 
+    print("Le gobelin a ", ennemi1.vie, "PV")
+    harry.attaquer(ennemi1)
+    print("Le gobelin a ", ennemi1.vie, "PV")
+    print("Harry a ",harry.mana, "de mana")
