@@ -13,15 +13,25 @@ with open("sauvegarde.txt", "w") as fichier_sauvegarde :
 
 with open("sauvegarde.txt", "r") as fichier_sauvegarde :
     contenu = fichier_sauvegarde.read()
-    #print(contenu)
+    print(contenu)
+
+with open("sauvegarde.txt", "a") as fichier_sauvegarde :
+    pseudo2 = input("Choisir un pseudo : ")
+    niveau2 = int(input("Choisir un niveau"))
+    fichier_sauvegarde.write("\n" + "Pseudo : " + pseudo2 + "\n" 
+                             + "Niveau : " + str(niveau2))
 
 with open("sauvegarde.txt", "r") as fichier_sauvegarde :
-    liste = fichier_sauvegarde.readlines()
-    print(liste)
-    pseudo = liste[0].split(" : ")
-    detail = pseudo[1].split("\n")
-    niveau = liste[1].split(" : ")
-    pseudo_charge = detail[0]
-    niveau_charge = int(niveau[1])
-    print(pseudo_charge)
-    print(niveau_charge)
+    contenu = fichier_sauvegarde.read()
+    print(contenu)
+
+# with open("sauvegarde.txt", "r") as fichier_sauvegarde :
+#     liste = fichier_sauvegarde.readlines()
+#     print(liste)
+#     pseudo = liste[0].split(" : ")
+#     detail = pseudo[1].split("\n")
+#     niveau = liste[1].split(" : ")
+#     pseudo_charge = detail[0]
+#     niveau_charge = int(niveau[1])
+#     print(pseudo_charge)
+#     print(niveau_charge)
