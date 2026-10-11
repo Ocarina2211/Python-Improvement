@@ -1,17 +1,24 @@
 import json
 
-ps = (input("Choisi ton pseudo"))
-nv = int(input("Choisi ton niveau"))
-pv = int(input("Choisi tes pv"))
+donnees = []
+nbr_joueurs = 3
+n = 0
 
-joueur = {"Pseudo" : ps, "Niveau" : nv, "PV" : pv}
+while n < nbr_joueurs :
+    pseudo = input("Pseudo : ")
+    niveau = int(input("Niveau : "))
+    pv = int(input("PV : "))
+    joueur = {"Pseudo" : pseudo, "Niveau" : niveau, "PV" : pv}
+    donnees.append(joueur)
+    n += 1
 
-with open("sauvegarde.json", "w") as fichier:
-    json.dump(joueur, fichier, indent =  4)
+with open ("sauvegarde.json", "w") as fichier:
+    json.dump(donnees, fichier, indent=4)
 
-with open("sauvegarde.json", "r") as fichier:
-    joueur = json.load(fichier)
-    print("=== JOUEUR CHARGÉ ===")
-    print("Pseudo :", joueur["Pseudo"])
-    print("Niveau :", joueur["Niveau"])
-    print("PV :", joueur["PV"])
+with open ("sauvegarde.json", "r") as fichier :
+    infos = json.load(fichier)
+    for info in infos :
+        print("Le pseudo est ", info["Pseudo"], "et il est niveau", info["Niveau"])
+        print()
+
+        
