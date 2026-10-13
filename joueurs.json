@@ -1,5 +1,17 @@
 [
-    {"Pseudo": "Matthieu", "Niveau": 10, "PV": 100},
-    {"Pseudo": "Lucas", "Niveau": 15, "PV": 80},
-    {"Pseudo": "Hugo", "Niveau": 5, "PV": 60}
+    {
+        "Pseudo": "Matthieu",
+        "Niveau": 11,
+        "PV": 100
+    },
+    {
+        "Pseudo": "Lucas",
+        "Niveau": 16,
+        "PV": 80
+    },
+    {
+        "Pseudo": "Hugo",
+        "Niveau": 5,
+        "PV": 60
+    }
 ]
