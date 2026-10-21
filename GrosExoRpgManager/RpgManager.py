@@ -3,7 +3,7 @@ import json
 
 
 class Personnage() :
-    def __init__(self, pseudo ="", classe ="", niveau = 1, vie = 100) :
+    def __init__(self, pseudo =None, classe =None, niveau = 1, vie = 100) :
         self.pseudo = pseudo
         self.classe = classe
         self.niveau = niveau
@@ -31,20 +31,20 @@ joueurs = {}
 menu()
 while True :
     try :
-        action = int(input("Quelle action voulez-ous réaliser ? : "))
+        action = int(input("Quelle action voulez-vous réaliser ? : "))
         break
     except ValueError :
         print("Veuillez saisir un nombre")
         
 
-while action != 6 :
-    if action == 1 :
+while action != 6 : # Quitter
+    if action == 1 : # Créer un personnage
         nomJoueur = input("Nom du joueur : ")
         joueur = Personnage(input("Pseudo du joueur : "), input("Classe du joueur : "), 1, 100)
         joueurs[nomJoueur] = [joueur.pseudo, joueur.classe, joueur.niveau, joueur.vie]
         
 
-    if action == 2 :
+    if action == 2 : # Afficher les personnages
         print("" \
         "" \
         "")
@@ -57,20 +57,38 @@ while action != 6 :
         "" \
         "")
 
-    if action == 3:
+    if action == 3: # Ajouter un niveau à un joueur
+        print("\n=== Amélioration de niveau ===\n")
         if not joueurs:
             print("Aucun joueur n'a été créé.")
         else:
             while True:
-                nom = input("Nom du joueur à améliorer (pas son pseudo) : ")
+                ps = input("Qui recevra l'augmentation de niveau ? : ")
+                for nomJoueur, infoJoueur in joueurs.items():
+                    if infoJoueur[0] == ps :
+                        infoJoueur[2] += 1
+                        print("L'augmentation de niveau de", infoJoueur[0]," a été réalisé avec succès !")
+                    else :
+                        print("Aucun joueur n'a ce pseudo")
+                break
 
-                if nom in joueurs:
-                    # [pseudo, classe, niveau, vie] : le niveau est à l'indice 2.
-                    joueurs[nom][2] += 1
-                    print("Nouveau niveau :", joueurs[nom][2])
-                    break  # Quitte la boucle de demande du nom.
-                else:
-                    print("Ce joueur n'existe pas. Réessaie.")
+    if action == 4: # Supprimer un joueur
+        print("\n=== Suppression de personnage ===\n")
+        if not joueurs :
+            print("Aucun joueur n'a été créé.")
+        else :
+            while True :
+                ps = input("Veuillez saisir le pseudo du joueur que vous souhaiter supprimer : ")
+                for nomJoueur, infoJoueur in joueurs.items():
+                    if infoJoueur[0] == ps :
+                        print("Le joueur", infoJoueur[0], " a été supprimé avec succès ! ")
+                        del joueurs[nomJoueur]
+                    else :
+                        print("Aucun joueur n'a ce pseudo")
+                break 
+                        
+
+                
 
     menu()
 
